@@ -3,6 +3,8 @@ import PessoaController from "../controllers/PessoaController.js";
 
 const router = Router();
 
-router.get('/pessoas', PessoaController.getAll);
+const pessoaController = new PessoaController();
+
+router.get('/pessoas', (req, res) => pessoaController.pegaTodos(req, res));
 
 export default router;

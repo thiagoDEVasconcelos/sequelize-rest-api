@@ -1,13 +1,12 @@
 import database from "../models/pessoa.js";
+import Controller from "./Controller.js";
+import PessoasServices from "../services/PessoaServices.js";
 
-class PessoaController {
-    static async getAll(req, res) {
-        try{
-            const listaDePessoas = await database.Pessoa.findAll();
-            return res.status(200).json(listaDePessoas);
-        } catch(err0) {
-            //
-        }
+const pessoasServices = new PessoasServices();
+
+class PessoaController extends Controller {
+    constructor() {
+        super(pessoasServices);
     }
 }
 
