@@ -1,4 +1,4 @@
-import dataSource from '../models.js';
+const dataSource = require('../models');
 
 class Service {
     constructor(nomeDoModel) {
@@ -6,6 +6,27 @@ class Service {
     }
 
     async pegaTodosOsRegistros() {
-        return dataSource[this.model].findAll()
+        return dataSource[this.model].findAll();
+    }
+
+    async pegaUmRegistroPorId(id) {
+        return dataSource[this.model].findByPk(id);
+    }
+
+    async criaRegistro(dadosDoRegistro) {
+        return dataSource[this.model].create(dadosDoRegistro);
+    }
+
+    async atualizaRegistro(dadosAtualizados, id) {
+        const [quantidadeAtualizada] = await dataSource[this.model].update(dadosAtualizados, {
+            where: { id: id }
+        });
+        return quantidadeAtualizada > 0;
+    }
+
+    async excluiRegistro(id) {
+        return dataSource[this.model].destroy({ where: { id: id } });
     }
 }
+
+module.exports = Service;
